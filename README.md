@@ -1,7 +1,9 @@
 # OncoLens 🔬
 ### AI-Powered Cancer Research Intelligence
 
-OncoLens is an AI-powered research assistant designed to help researchers explore cancer-related scientific literature more efficiently. By combining Retrieval-Augmented Generation (RAG), semantic search, and evidence-grounded summarization, OncoLens helps users find relevant research papers, extract key findings, and understand complex scientific studies without manually reading every paper in full.
+OncoLens is an AI-powered research assistant designed to help researchers explore cancer-related scientific literature more efficiently. By combining Retrieval-Augmented Generation (RAG), semantic search, and evidence-grounded summarization, OncoLens helps users discover relevant research papers, extract key findings, and understand complex scientific studies without manually reading every paper in full.
+
+The platform is designed to leverage a curated knowledge base of **300+ scientific research papers, studies, and articles** covering various aspects of cancer research, including molecular biology, cancer mechanisms, treatment approaches, and clinical studies.
 
 ## Key Features
 
@@ -15,7 +17,8 @@ OncoLens is an AI-powered research assistant designed to help researchers explor
 
 - Reduce the time required to discover and understand relevant scientific literature.
 - Improve access to evidence within lengthy research papers.
-- Support more transparent, source-grounded exploration of cancer research.
+- Build a specialized knowledge base containing 300+ scientific papers, studies, and articles on cancer research.
+- Support more transparent, source-grounded exploration of scientific evidence.
 - Help researchers navigate scientific findings while preserving the context and limitations of each study.
 
 ## Technology Stack
