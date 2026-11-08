@@ -30,3 +30,33 @@ Python · RAG · Large Language Models (LLMs) · Embeddings · Vector Search · 
 ## Disclaimer
 
 OncoLens is a research-support tool, not a medical decision-making system. Its outputs require verification against the original scientific literature and should not replace expert scientific or clinical judgment.
+
+
+# Setup project to work
+
+1. **install uv**
+```bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+2. **environment setup**
+```bash
+uv sync
+```
+
+3. **activate environment**
+```bash
+.venv\Scripts\activate
+```
+
+3. **Run main.py**
+```bash
+uvicorn src.main:app --reload --post 5000 --host 0.0.0.0
+```
+
+# Endpoint :
+
+**Base Endpoint**
+> *swagger interface:* [http://127.0.0.1:5000/docs](http://127.0.0.1:5000/docs)
+
+> *Base Information Endpoint* [http://127.0.0.1:5000/api/v0.1.0/app-info](http://127.0.0.1:5000/api/v0.1.0/app-info)
