@@ -7,7 +7,12 @@ class SETTINGS(BaseSettings):
     # Application information
     APP_NAME:str
     APP_VERSION:str
+     
+    # DB 
+    MONGO_URL:str
+    MONGO_DB_NAME:str
     
+    MAX_UPLOAD_SIZE_MG:int   
     # Reading .env file
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",
