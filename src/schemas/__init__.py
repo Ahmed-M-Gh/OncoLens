@@ -1,1 +1,2 @@
 from .UploaderSchema import ResearchCategory, UploadDocumentRequest, UploadDocumentResponse
+from .SearchSchema import SearchDocumentItem, SearchDocumentRequest, SearchDocumentResponse

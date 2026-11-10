@@ -17,3 +17,5 @@ class ResponseEnum(str, Enum):
     FileSizeLimit = "file_size_exceeded_the_allowed_limit"
     
     NotFoundCategory = "category_not_found"
+    
+    EmptyQuery = "search_query_can't_be_empty"

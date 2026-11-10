@@ -60,3 +60,7 @@ uvicorn src.main:app --reload --post 5000 --host 0.0.0.0
 > *swagger interface:* [http://127.0.0.1:5000/docs](http://127.0.0.1:5000/docs)
 
 > *Base Information Endpoint* [http://127.0.0.1:5000/api/v0.1.0/app-info](http://127.0.0.1:5000/api/v0.1.0/app-info)
+
+> *Base document uploader Endpoint* [http://127.0.0.1:5000/api/v0.1.0/documents/upload](http://127.0.0.1:5000/api/v0.1.0/documents/upload)
+
+> *Base document uploader Endpoint* [http://127.0.0.1:5000/api/v0.1.0/documents/search](http://127.0.0.1:5000/api/v0.1.0/documents/search)

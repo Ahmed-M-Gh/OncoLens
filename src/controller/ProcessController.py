@@ -9,6 +9,8 @@ from src.schemas.db_schemas.collections import document_collection, category_col
 from src.schemas.db_schemas.document_DB_schema import build_document_record
 from src.schemas.db_schemas.gridfs_storage import upload_file, delete_file
 from src.schemas.enums import ResponseEnum
+import re 
+from src.schemas import SearchDocumentRequest
 
 ###################
 # PDF VALIDATION
@@ -18,13 +20,13 @@ def validate_pdf(file):
     if not file.filename:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=ResponseEnum.FilenameRequired
+            detail=ResponseEnum.FilenameRequired.value
         )
         
     if Path(file.filename).suffix.lower() != ".pdf" :
         raise HTTPException(
             status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-            detail=ResponseEnum.PDFOnly
+            detail=ResponseEnum.PDFOnly.value
         )
         
     
@@ -35,7 +37,7 @@ def validate_pdf(file):
     if file_signature != b"%PDF-":
         raise HTTPException(
             status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-            detail=ResponseEnum.InvalidPDFFile
+            detail=ResponseEnum.InvalidPDFFile.value
         )
         
     file.file.seek(0, 2)
@@ -47,7 +49,7 @@ def validate_pdf(file):
     if file_size > max_size:
         raise HTTPException(
             status_code=status.HTTP_431_REQUEST_HEADER_FIELDS_TOO_LARGE,
-            detail=ResponseEnum.FileSizeLimit
+            detail=ResponseEnum.FileSizeLimit.value
         )
         
     return file_size
@@ -71,7 +73,7 @@ def upload_document(request):
         if not category :
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=ResponseEnum.NotFoundCategory
+                detail=ResponseEnum.NotFoundCategory.value
             )
             
         # step 3 : Upload PDF to GridFS
@@ -100,7 +102,7 @@ def upload_document(request):
         
         # Step 6 : return result
         return {
-            "message" : ResponseEnum.FileUploadSuccess
+            "message" : ResponseEnum.FileUploadSuccess.value
         }
     
     except HTTPException:
@@ -116,11 +118,51 @@ def upload_document(request):
         
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=ResponseEnum.FileUploadFailed
+            detail=ResponseEnum.FileUploadFailed.value
         ) from error
         
     finally :
         request.file.file.close()
         
         
+
+###################
+# Search Doc Logic
+###################
+def search_document(request: SearchDocumentRequest):
+    # Step 1 : Paper Search query
+    query = re.escape(request.query.strip())
     
+    # Step 2 : Build Search filter
+    search_filter = {
+        "name" : {
+            "$regex" : query,
+            "$options" : "i"
+        }
+    }
+    
+    # Step 3 : Search in mongoDB
+    documents = document_collection.find(search_filter).sort("created_at", -1)
+    
+    # Step 4 : format results
+    results = []
+    
+    for document in documents:
+        category = category_collection.find_one({
+            "_id" : document["category_id"]
+        })
+        
+        results.append({
+            "id" : str(document["_id"]),
+            "name" : document["name"],
+            "original_filename" : document["original_filename"],
+            "file_size" : document["file_size"],
+            "created_at" : document["created_at"],
+            "category" : category["slug"] if category else "UNKNOWN"
+        })
+        
+    # step 5 : return results
+    return {
+        "results" : results,
+        "total" : len(results)
+    }
