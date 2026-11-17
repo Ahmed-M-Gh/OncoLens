@@ -31,6 +31,9 @@ Python · RAG · Large Language Models (LLMs) · Embeddings · Vector Search · 
 
 OncoLens is a research-support tool, not a medical decision-making system. Its outputs require verification against the original scientific literature and should not replace expert scientific or clinical judgment.
 
+# RAG Building 
+- to understand all decitions behind the building run notebooks in this order
+1. PDF_Parsing.ipynb [notebooks/PDF_Parsing.ipynb](notebooks/PDF_Parsing.ipynb)
 
 # Setup project to work
 
