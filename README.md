@@ -54,7 +54,7 @@ uv sync
 
 3. **Run main.py**
 ```bash
-uvicorn src.main:app --reload --post 5000 --host 0.0.0.0
+uvicorn src.main:app --reload --port 5000 --host 0.0.0.0
 ```
 
 # Endpoint :
